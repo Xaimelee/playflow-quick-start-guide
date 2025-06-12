@@ -1,23 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://cig1frw586y3u"]
+[gd_scene load_steps=6 format=3 uid="uid://cig1frw586y3u"]
 
 [ext_resource type="Material" uid="uid://bcxhir3dowmmt" path="res://mat_ground.tres" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://b3o3yslcddhx5" path="res://connection_display.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://bf7l51gpwm82p" path="res://spawner.gd" id="3_h2yge"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7dm0k"]
 size = Vector2(10, 10)
 
-[node name="Main" type="Node3D"]
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_h2yge"]
+data = PackedVector3Array(5, 0, 5, -5, 0, 5, 5, 0, -5, -5, 0, 5, -5, 0, -5, 5, 0, -5)
 
-[node name="Ground" type="MeshInstance3D" parent="."]
-material_override = ExtResource("1_ig7tw")
-mesh = SubResource("PlaneMesh_7dm0k")
+[node name="Main" type="Node3D"]
 
 [node name="ConnectionDisplay" type="Control" parent="."]
 custom_minimum_size = Vector2(256, 128)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 256.0
+offset_bottom = 128.0
 script = ExtResource("2_0xm2m")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ConnectionDisplay"]
@@ -25,16 +25,27 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 44.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AddressInput" type="TextEdit" parent="ConnectionDisplay/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 32)
+[node name="HBoxContainer" type="HBoxContainer" parent="ConnectionDisplay/VBoxContainer"]
 layout_mode = 2
-text = "IP
-"
-placeholder_text = "IP"
+
+[node name="UrlInput" type="TextEdit" parent="ConnectionDisplay/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(192, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Url"
+scroll_fit_content_height = true
+
+[node name="PortInput" type="TextEdit" parent="ConnectionDisplay/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Port"
+scroll_fit_content_height = true
 
 [node name="ConnectButton" type="Button" parent="ConnectionDisplay/VBoxContainer"]
 unique_name_in_owner = true
@@ -45,6 +56,28 @@ text = "Connect"
 unique_name_in_owner = true
 layout_mode = 2
 text = "Disconnect"
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_ig7tw")
+mesh = SubResource("PlaneMesh_7dm0k")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_h2yge")
+
+[node name="Players" type="Node3D" parent="."]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://djb6140cph0dy")
+spawn_path = NodePath("../Players")
+script = ExtResource("3_h2yge")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 3, 7)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 3, 0)
 
 [connection signal="pressed" from="ConnectionDisplay/VBoxContainer/ConnectButton" to="ConnectionDisplay" method="_on_connect_button_pressed"]
 [connection signal="pressed" from="ConnectionDisplay/VBoxContainer/DisconnectButton" to="ConnectionDisplay" method="_on_disconnect_button_pressed"]
