@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://cig1frw586y3u"]
+
+[ext_resource type="Material" uid="uid://bcxhir3dowmmt" path="res://mat_ground.tres" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://b3o3yslcddhx5" path="res://connection_display.gd" id="2_0xm2m"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7dm0k"]
+size = Vector2(10, 10)
+
+[node name="Main" type="Node3D"]
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_ig7tw")
+mesh = SubResource("PlaneMesh_7dm0k")
+
+[node name="ConnectionDisplay" type="Control" parent="."]
+custom_minimum_size = Vector2(256, 128)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_0xm2m")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ConnectionDisplay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AddressInput" type="TextEdit" parent="ConnectionDisplay/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+text = "IP
+"
+placeholder_text = "IP"
+
+[node name="ConnectButton" type="Button" parent="ConnectionDisplay/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Connect"
+
+[node name="DisconnectButton" type="Button" parent="ConnectionDisplay/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Disconnect"
+
+[connection signal="pressed" from="ConnectionDisplay/VBoxContainer/ConnectButton" to="ConnectionDisplay" method="_on_connect_button_pressed"]
+[connection signal="pressed" from="ConnectionDisplay/VBoxContainer/DisconnectButton" to="ConnectionDisplay" method="_on_disconnect_button_pressed"]
