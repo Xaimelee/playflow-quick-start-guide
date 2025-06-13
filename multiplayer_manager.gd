@@ -1,6 +1,6 @@
 extends Node
 
-# Server port
+# Internal server port
 const PORT: int = 8080
 
 #Use ENetMultiplayerPeer for non web games
@@ -18,7 +18,8 @@ func start_server() -> void:
 		multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 
 func start_client(url: String, port: String) -> void:
-	#wss:// if web exported or server uses ssl, otherwise you can use ws://, localhost testing should use ws://
+	# wss:// if web exported or server uses ssl, otherwise you can use ws://
+	# If you want to use localhost (i.e you run a windows server export on your PC for testing), then it must be ws:// instead.
 	var err: Error = peer.create_client("wss://" + url + ":" + port)
 	# ENet: var err: Error = peer.create_client("wss://" + ip, int(port))
 	if err == 0:
@@ -28,6 +29,7 @@ func disconnect_from_server() -> void:
 	peer.close()
 
 func is_server() -> bool:
+	# Exports have tags and this lets us identify if the build is a dedicated server.
 	return OS.has_feature("dedicated_server")
 
 func _on_peer_disconnected(id: int) -> void:
