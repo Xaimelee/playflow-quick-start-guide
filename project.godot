@@ -21,7 +21,7 @@ MultiplayerManager="*res://multiplayer_manager.tscn"
 
 [global_group]
 
-Player=""
+Players=""
 
 [input]
 

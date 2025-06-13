@@ -33,7 +33,7 @@ func is_server() -> bool:
 	return OS.has_feature("dedicated_server")
 
 func _on_peer_disconnected(id: int) -> void:
-	var nodes = get_tree().get_nodes_in_group("Player")
+	var nodes = get_tree().get_nodes_in_group("Players")
 	for node in nodes:
 		if node.get_multiplayer_authority() == id:
 			node.queue_free()

@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=3 uid="uid://cig1frw586y3u"]
+[gd_scene load_steps=5 format=3 uid="uid://cig1frw586y3u"]
 
-[ext_resource type="Material" uid="uid://bcxhir3dowmmt" path="res://mat_ground.tres" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://b3o3yslcddhx5" path="res://connection_display.gd" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://bf7l51gpwm82p" path="res://spawner.gd" id="3_h2yge"]
 
@@ -56,7 +55,6 @@ layout_mode = 2
 text = "Disconnect"
 
 [node name="Ground" type="MeshInstance3D" parent="."]
-material_override = ExtResource("1_ig7tw")
 mesh = SubResource("PlaneMesh_7dm0k")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Ground"]

@@ -23,6 +23,7 @@ func _on_disconnect_button_pressed() -> void:
 	port_input.editable = true
 	MultiplayerManager.disconnect_from_server()
 
+# If we are unable to connect then we enable the connect button and text inputs again.
 func _on_connection_failed() -> void:
 	connect_button.visible = true
 	disconnect_button.visible = false
