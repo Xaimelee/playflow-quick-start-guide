@@ -7,6 +7,7 @@ extends Control
 
 func _ready() -> void:
 	disconnect_button.visible = false
+	multiplayer.connection_failed.connect(_on_connection_failed)
 
 func _on_connect_button_pressed() -> void:
 	connect_button.visible = false
@@ -21,3 +22,9 @@ func _on_disconnect_button_pressed() -> void:
 	url_input.editable = true
 	port_input.editable = true
 	MultiplayerManager.disconnect_from_server()
+
+func _on_connection_failed() -> void:
+	connect_button.visible = true
+	disconnect_button.visible = false
+	url_input.editable = true
+	port_input.editable = true
