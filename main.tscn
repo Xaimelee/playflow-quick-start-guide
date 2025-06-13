@@ -1,13 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cig1frw586y3u"]
+[gd_scene load_steps=4 format=3 uid="uid://cig1frw586y3u"]
 
 [ext_resource type="Script" uid="uid://b3o3yslcddhx5" path="res://connection_display.gd" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://bf7l51gpwm82p" path="res://spawner.gd" id="3_h2yge"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7dm0k"]
 size = Vector2(10, 10)
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_h2yge"]
-data = PackedVector3Array(5, 0, 5, -5, 0, 5, 5, 0, -5, -5, 0, 5, -5, 0, -5, 5, 0, -5)
 
 [node name="Main" type="Node3D"]
 
@@ -56,11 +53,6 @@ text = "Disconnect"
 
 [node name="Ground" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_7dm0k")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_h2yge")
 
 [node name="Players" type="Node3D" parent="."]
 
